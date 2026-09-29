@@ -1,0 +1,68 @@
+why:
+- reduced latency
+- availability
+	- but solve the routing problem
+- throughput
+	- read throughput increase
+	- write throughput decreases
+		- conflict resolution scheme(lww)
+- reducing correlated failure in geographical region
+- **PACELC theorem**
+- why not just buy bigger machine to handle it ?
+	- cost doesn't scale linearly with higher spec
+	- google's case study
+	- network throughput limitation ?
+- limit comes in throughput to disk write:
+	- sequential write 
+	- can be go beyond the file descriptors
+		- file descriptors leak ?
+		- https://share.google/aimode/Bs8NGxA0ypGphSdUb
+		- file descriptors are limited resources, but we have to work our way around it, it is not a physical limitation , we should place our bottlenecks at the physical limitations rather than placing them on something we can work around or manage efficiently
+			- what is the absolute limiting factor ?
+			- what is the true bottleneck ?
+				- we should use the bottleneck, actually leverage all the resources
+				- https://engineering.fb.com/2008/12/12/core-infra/scaling-memcached-at-facebook/
+				  https://engineering.fb.com/2013/11/21/core-infra/under-the-hood-building-and-open-sourcing-rocksdb/
+				- https://share.google/aimode/3PUFaGrQAKL3l7ke7
+		- absolutely have a idea about the physical limits of network cards, spinning disks and rams, etc, to have know limits of what we can push through each of these hardware
+		- C10k Problem:
+			-  https://www.kegel.com/c10k.html
+			  https://www.systemdesignhandbook.com/guides/c10k-problem/
+			- https://share.google/aimode/C85H9EWhueKEFSLgP
+			- https://share.google/aimode/1dR7Jebu4uHHtoi5h
+- skill in system design is about understanding the fundamental constraints and maxxing them out 
+- know your workload:
+	- throughput requirements
+--------------------------------------------------------------------------
+- Replication Lag:
+	- read your own write:
+		- Synchronous replication
+		- read from the leader
+		- route logically based on application
+	
+	- leaderless replication, multi leader replication
+	
+	- read synchronous replication:
+		- if the leader fails, we can fail over to one node as leader
+- Sync vs Async replication
+	- semi sync -  ideal
+- how to ship state transition:
+	- ship the delta or ship the sql query itself
+	- statement based replication
+		- problem:
+		- non deterministic function in query(rand, time.now())
+		- richer semantics telling no non-deterministic query 
+	- physical vs logical
+		- write ahead log shipping vs logical replication
+		- change data capture
+		- what happens when the structure of the data changes between the state transition and replication
+	- can we compact the state changes and have a snapshot and replicate the snapshot
+		- ship snapshot instead of state transtition
+- can you just copy state ?
+- detect failure in replication
+	- how to determine failure
+	- very careful about reintroducing the failed node
+		- cache warming issue
+	- split-brain problem
+		- multi leader in a single leader system
+		- 
