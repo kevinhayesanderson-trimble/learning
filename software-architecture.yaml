@@ -1,0 +1,68 @@
+demonstration defeates discussion
+engineering approach
+	engineering test
+	fitness functions
+	not hype or evangalism
+	base everthing(decisions) on enginerring and data
+	
+Software architecture
+	Structural aspect
+    architectural style(microservices, monolithic, layered, event-driven, etc.)
+    architectural characteristics(ilities)
+    architectural components(functional and non-functional building blocks(eg: services, modules, layers, etc.))
+    architectural decisions(business level decisions, trade offs, constraints, etc.)
+  Process aspect
+    collaboration
+    risk analysis
+    governance
+    facilitation
+    leadership
+    negotiation
+
+Software Architect
+  what is expected
+    analyse trade offs and constraints and make decisions(trade-off analysis)
+    continually analyse and improve the architecture
+    continually analyse technology and industry trends and keep current with the trends
+    ensure compliance with the architecture through governance
+    have exposure(not neccessarily expertise) to multiple and diverse technologies, platforms and environments(hard expectation to achieve)
+    have a certain level of business domain expertise(hard expectation to achieve)
+    possess exceptional interpersonal skills(teamwork, facilitation, negotiation, leadership)
+    understand the political climate of the enterprise and be able to navigate the politics
+
+Modularity vs Granularity
+  Modularity
+    breaking up a large monolithic system into smaller, more manageable modules
+    Architectural Modularity
+      why ?
+      
+  Granularity 
+    granularity is really about the size of the modules
+
+  Trafe Off Analysis:
+	granularity
+Tools:
+	TIme to market -> 	Maintainability ->		Trade-off Analysis
+						Testablility			Performance vs Maintainability
+						Deployability
+	
+	Trade-off Analysis:
+		mitigate inevitable trade-offs
+	
+Architecture Quantum:
+	Structural Design:
+		requirements|use cases|Story cards|
+		behaviour & capabilities:
+			performance
+			relability
+			security
+			scalability
+			elasticity
+			deployablity
+	An architectural quantum is an independently deployable component with high functional cohesion
+		-> scope for set of architectural characteristics
+		-> high functional cohesion
+		-> 5 types of coupling
+	
+
+	

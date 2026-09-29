@@ -1,0 +1,130 @@
+Global interpreter lock(GIL) in python
+
+
+threading:
+	concurrent.futures
+	thread pool executor
+	thread class:
+		pool -> list of threads
+		each thread executes a target method
+		scheduleing overhead, scheduleing done by OS, OS naively interleavs in the assembly code, 
+			- to prevent the invalid state due to interleaving:
+				- lock on the level of individual bytecode by python interpreter -> Global interpreter lock(GIL)
+				- thread contend for the GIL
+				
+		-- import lock -> lock on import of modules
+		
+		threads operate on a common memory
+		interleaving may happen on one thread reading the data and other mutating it, first thread read a stale data
+		interleaving on reading data -> clobbered read
+		
+		so we offload the interleaving to the application level(we lock instead of OS GIL)"from threading import Lock"
+		
+		
+		
+multiprocessing:
+	process is fundamental unit of isolation
+	processes has each it's own memory and GIL, contention only inside a process, not between process
+	data in multiprocessing is movable and copyable -> picklable -> can be moved around
+		generators, file handlers, etc are not picklable
+	CPU bound -> only if the data movement between processes is low
+		solved by multiprocessing.shared_memory
+		
+	
+generators:
+	yield -> decomposition by us -> manual interleaving points -> similar to the OS GIL
+	not only interleaving, we can run to next interleaving points
+	
+
+decorators
+
+generators
+
+mixin
+
+meta class:
+	provide others python object model
+		provide classes
+		we are authors of lib.py
+		users should be able to customise the provided class
+		provide unbounded functionality - allow users to subclass
+		assert constraints in the app about the libs
+		
+				
+assert attr on class def
+ *self.base_func() in derived class init and in base class init -> expecting methods vice-versa
+ __build_class is for debugging the derived class from the base class
+ __build_class -> don't use it to assert a constraint from the base calss
+ 
+ __init_subclass__ in base class
+	define this is as a decorator in base class, which decorates the methods in the derived calss
+ from inspect import signature
+ 
+ trivial technicks:
+	writing code that writes code:
+		impossible to debug, exists while the lifecycle of the program, disappears after
+		build code/source generator in the compile time rather in runtime to debug and look into it
+		modification made on source generated code is removed on recompiliation
+		
+		
+	'exec' and 'eval'
+		eval an expression
+		exec an statement
+		
+	from collections import namedtuple
+		light weight runtime source generation
+		poc/prototype usage - type validations
+ 
+ ---- ast.parse, compile, dis.dis ---
+	when we import a module
+		python checks/stores in the sys.modules
+		open that module
+		exec the module in a namespace
+		sys.modules["imported_module_name"] = namespace
+		
+		
+	exec
+		text to entity
+		Steps:
+			parse the code
+			degenerate and extract the ast
+			compile the parse ouput to generate the bytecode(code object)
+			use dis(diassembly) module to see the bytecode
+			exec the bytecode for entity in an namespace
+			use the enity in the namespace
+			
+			
+		manipulate/ transform the ast instead of bytecode
+		
+		
+------ instance evalutaion techniques -----------------
+	
+	locals() give a dict of all the local variables
+	global() give a dict of all the global variables
+	vars() - ?
+	
+
+@dataclass
+
+@instancemethod
+	
+@classmethod
+
+@staticmethod
+
+@property
+
+	how's these works
+	what's the purpose of it
+	
+	
+from pickle import dumps
+
+
+	
+	
+	
+	
+		
+		
+	

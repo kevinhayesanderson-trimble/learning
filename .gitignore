@@ -1,0 +1,49 @@
+# --- Rust ---
+**/target/
+
+# --- Go ---
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+**/main
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.env
+.env.*
+
+# --- Common build / vendor ---
+/bin/
+/pkg/
+vendor/
+node_modules/
+
+# --- IDE / editor ---
+.idea/
+.vscode/
+.vs/
+*.swp
+*.swo
+*~
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Tooling / vault ---
+.obsidian/
+.claude/
+.cargo/
