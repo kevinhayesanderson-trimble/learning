@@ -48,4 +48,31 @@ func (p *JobProcessor) Submit(job Job) error {
 	}
 }
 
+func (p *JobProcessor) worker(){
+	for {
+		select{
+			case job, ok := <- p.jobQueue:
+				if ok{
+					fmt.Println(job.ID, job.CreatedAt, job.Payload)
+				}else{
+					defer p.wg.Done()
+					return
+				}
+			case <- p.ctx.Done():
+				defer p.wg.Done()
+				return
+		}
+	}
+}
+
+func (p *JobProcessor) StartWorkers(count int){
+	for range count{
+		p.wg.Add(1)
+		go func() {
+			p.worker()
+		}()
+		p.wg.Add(0)
+	}
+}
+
 
