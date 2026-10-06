@@ -2,10 +2,10 @@ package main
 
 import (
 	"context"
-	"sync"
-	"time"
 	"errors"
 	"fmt"
+	"sync"
+	"time"
 )
 
 type Job struct {
@@ -27,10 +27,11 @@ func NewJobProcessor(queueSize int) *JobProcessor {
 	ctx, cancel := context.WithCancel(context.Background())
 	jobQueue := make(chan Job, queueSize)
 	processor := &JobProcessor{
-		jobQueue: jobQueue, 
-		ctx: ctx, 
-		cancel: cancel, 
-		isStopping: false}
+		jobQueue:   jobQueue,
+		ctx:        ctx,
+		cancel:     cancel,
+		isStopping: false,
+	}
 	return processor
 }
 
@@ -38,9 +39,9 @@ func (p *JobProcessor) Submit(job Job) error {
 	p.mu.RLock()
 	defer p.mu.RUnlock()
 	if p.isStopping {
-		 return errors.New("process is stopping, unable to submit this job")
+		return errors.New("process is stopping, unable to submit this job")
 	}
-	select{
+	select {
 	case p.jobQueue <- job:
 		return nil
 	default:
@@ -48,31 +49,24 @@ func (p *JobProcessor) Submit(job Job) error {
 	}
 }
 
-func (p *JobProcessor) worker(){
+func (p *JobProcessor) worker() {
+	defer p.wg.Done()
 	for {
-		select{
-			case job, ok := <- p.jobQueue:
-				if ok{
-					fmt.Println(job.ID, job.CreatedAt, job.Payload)
-				}else{
-					defer p.wg.Done()
-					return
-				}
-			case <- p.ctx.Done():
-				defer p.wg.Done()
+		select {
+		case job, ok := <-p.jobQueue:
+			if !ok {
 				return
+			}
+			fmt.Println(job.ID, job.CreatedAt, job.Payload)	
+		case <-p.ctx.Done():
+			return
 		}
 	}
 }
 
-func (p *JobProcessor) StartWorkers(count int){
-	for range count{
+func (p *JobProcessor) StartWorkers(count int) {
+	for range count {
 		p.wg.Add(1)
-		go func() {
-			p.worker()
-		}()
-		p.wg.Add(0)
+		go p.worker()
 	}
 }
-
-
