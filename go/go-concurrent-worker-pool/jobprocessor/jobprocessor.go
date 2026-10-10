@@ -1,4 +1,4 @@
-package main
+package jobprocessor
 
 import (
 	"context"
@@ -8,10 +8,26 @@ import (
 	"time"
 )
 
+type JobStatus int
+
+const (
+	Submitted JobStatus = iota
+	Created
+	Finished 	
+)
+
 type Job struct {
 	ID        string    `json:"id"`
 	Payload   string    `json:"payload"`
 	CreatedAt time.Time `json:"created_at"`
+}
+
+type JobResponse struct{
+	ID        string    `json:"id"`
+	Payload   string    `json:"payload"`
+	CreatedAt time.Time `json:"created_at"`
+	SubmittedAt time.Time `json:"submitted_at"`
+	JobStatus 
 }
 
 type JobProcessor struct {
@@ -69,4 +85,17 @@ func (p *JobProcessor) StartWorkers(count int) {
 		p.wg.Add(1)
 		go p.worker()
 	}
+}
+
+func (p *JobProcessor) Stop(){
+	p.mu.Lock()
+	if p.isStopping{
+		p.mu.Unlock()
+		return
+	}
+	p.isStopping = true
+	p.cancel()
+	close(p.jobQueue)
+	p.mu.Unlock()
+	p.wg.Wait()
 }
