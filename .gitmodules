@@ -1,0 +1,3 @@
+[submodule "go/go-concurrent-worker-pool"]
+	path = go/go-concurrent-worker-pool
+	url = https://github.com/kevinhayesanderson/go-concurrent-worker-pool.git
