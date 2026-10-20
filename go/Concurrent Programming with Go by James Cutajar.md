@@ -8,7 +8,9 @@ benefits:
 
 Scalability Limit:
 - Amdahl’s law
+	- 
 - Gustafson’s law
+	- 
 
 ## *Concurrency with processes*
 - provides isolation
@@ -74,3 +76,20 @@ Concurrency vs Parallelism:
 - Parallelism is about _performing_ many tasks at the same time.
 - A concurrent tasks may execute in parallel
 -  parallelism is a subset of concurrency
+
+
+Mutexes:
+- Blocking mutex locks
+	- lock and unlock around the shared resource between the go-routines
+- Non-Blocking mutex locks
+	- `TryLock()`
+- Reader Writer Mutexes:
+	-  only block concurrency when we need to update a shared resource
+	- Salient Points:
+			- between a `RLock()` and `RUnlock()` , acquiring a write lock is blocked
+			- between a `RLock()` and `RUnlock()`, doesn't block acquiring a read lock, thus reads are non blocking
+			- for acquiring a write lock, all the read locks should be unlocked or released
+	- increase the request handling rate -> throughput advantage
+	- 
+
+
