@@ -78,7 +78,7 @@ Concurrency vs Parallelism:
 -  parallelism is a subset of concurrency
 
 
-Mutexes:
+## Mutexes:
 - Blocking mutex locks
 	- lock and unlock around the shared resource between the go-routines
 - Non-Blocking mutex locks
@@ -90,6 +90,17 @@ Mutexes:
 			- between a `RLock()` and `RUnlock()`, doesn't block acquiring a read lock, thus reads are non blocking
 			- for acquiring a write lock, all the read locks should be unlocked or released
 	- increase the request handling rate -> throughput advantage
-	- 
+
+## Conditional Variables:
+- wait for a certain condition to occur before unblocking the execution
+-  the `Wait()` function releases the mutex and suspends the execution in an _atomic_ manner
+- Whenever a waiting goroutine receives a signal or broadcast, it will try to reacquire the mutex. If another execution is holding on to the mutex, the goroutine will remain suspended until the mutex becomes available.
+***A monitor is a synchronization pattern that has a mutex with an associated condition variable.
+ - RWMutex in go is write-preferring
+ - 
+## Semaphores:
+- allow us to control how many concurrent goroutines can execute a certain section at the same time
+- **_A semaphore with only one permit is sometimes called a binary semaphore
+- When used to signal, semaphores have the added advantage that the signal is stored if the execution is not yet waiting for it.
 
 
