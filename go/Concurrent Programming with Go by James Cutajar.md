@@ -103,4 +103,10 @@ Concurrency vs Parallelism:
 - **_A semaphore with only one permit is sometimes called a binary semaphore
 - When used to signal, semaphores have the added advantage that the signal is stored if the execution is not yet waiting for it.
 
+## _Synchronizing with waitgroups and barriers:
+
+- _waitgroups_ to wait for a group of tasks to complete
+- _barriers_ to synchronize many executions at a common point
+- A Barrier is a synchronization tool that forces a group of concurrent threads (or goroutines) to stop at a specific checkpoint until every single thread in the group has arrived. Once the last thread arrives, the gate opens and all threads continue executing at the exact same time.
+
 
