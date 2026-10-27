@@ -109,4 +109,20 @@ Concurrency vs Parallelism:
 - _barriers_ to synchronize many executions at a common point
 - A Barrier is a synchronization tool that forces a group of concurrent threads (or goroutines) to stop at a specific checkpoint until every single thread in the group has arrived. Once the last thread arrives, the gate opens and all threads continue executing at the exact same time.
 
+# Message passing
+communicating sequential processes (CSP):
+-  processes connect to each other by communicating via synchronous message passing
+ Message passing is another way to enable _inter-thread communication_ (ITC)
 
+## Channels
+- by default, Go’s channels are synchronous. A sender will block if there isn’t a goroutine consuming its message, and a receiver will similarly block if there isn’t a goroutine sending a message
+- Go’s channels are _bidirectional_ by default
+- *__Buffered Channels:
+	- if the buffer is full, the sender will block
+	- if the buffer is empty, the receiver will block
+	- 
+
+
+Sentinel Value:
+- In software development, a sentinel value is a predefined value that signals to an execution, a process, or an algorithm that it should terminate. 
+- In the context of multithreading and a distributed system, this is sometimes referred to as a poison pill message.
