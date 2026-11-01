@@ -147,6 +147,9 @@ go channel struct:
 ```
 
 
+
+
+
 Sentinel Value:
 - In software development, a sentinel value is a predefined value that signals to an execution, a process, or an algorithm that it should terminate. 
 - In the context of multithreading and a distributed system, this is sometimes referred to as a poison pill message.
