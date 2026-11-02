@@ -12,7 +12,7 @@ sys: CPU time the kernel spent doing the work for the process(i.e syscalls)
 Multiplication:
 real: 0.405s user: 0.405s sys: 0.000s
 CPU time:0.404770 , Wall time:0.404781
-    nearly equal, the program actively computing
+- nearly equal, the program actively computing
 
 Allocation:
 real: 0.037s user: 0.001s sys: 0.036s
@@ -71,10 +71,16 @@ linux preserves the process address space and saves its CPU state(registers and 
 
 
 Time:
-: Epoch Timestamp
+- Epoch Timestamp
 	- CLOCK_REALTIME gives the seconds since 1970-01-01 UTC
 	- what time ?
 	- can be adjusted by the system clock
-: Elapsed since program start
+-  Elapsed since program start
 	- CLOCK_MONOTOMIC gives a steadily increasing clock with an arbitrary origin
 	- how long has this program been running
+
+`strace` and `ftrace` are **runtime tracing tools** used to observe dynamic execution flow and interactions between user space and the Linux kernel.
+strace:
+- System call tracer
+- 
+ftrace
