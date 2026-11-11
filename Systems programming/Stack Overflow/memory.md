@@ -1,7 +1,7 @@
 virtual memory:
 - sub-system
 - Address Space Layout Randomization (ASLR) is a computer security feature that randomly arranges the memory locations of key program data—such as the stack, heap, shared libraries, and the main executable base—every time a program runs
-- 
+ - https://phrack.org/issues/49/smashing-the-stack-for-fun-and-profit_md
 
 Stack overflow:
 - Stack overflow is a common software bug that occurs when a program writes more data to the stack
